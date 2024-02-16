@@ -12,12 +12,12 @@ def getting_data(method: str) -> list[list[np.ndarray]]:
     if method not in possible_methods:
         raise NotImplementedError()
 
-    path = Path.cwd() / "Data" / "all_shapes.mat"
+    path = Path.cwd() / "data" / "all_shapes.mat"
     return read_data(path)
 
 
 def read_data(path: Path) -> list[list[np.ndarray]]:
-    logging.info(f"reading Data...")
+    logging.info("reading Data...")
 
     data = []
 
@@ -28,5 +28,5 @@ def read_data(path: Path) -> list[list[np.ndarray]]:
         for object in object_class:
             objects.append(np.array(object, dtype="float"))
         data.append(objects)
-    logging.info(f"    ...done")
+    logging.info("    ...done")
     return data
