@@ -150,7 +150,6 @@ def main():
     if False:
         for k, matrix in enumerate(hr_matricies):
             matrix_to_dat_file(matrix, f"hr_mat_{cfg.name_str}_{k}")
-
     logging.info("Programm finished! Yeah... :)")
 
 
