@@ -1,11 +1,9 @@
 import logging
 
-import hydra
 import matplotlib.pyplot as plt
 import numpy as np
-from hydra.core.config_store import ConfigStore
 
-from config.conf import Config, name_str, show_config
+from config.conf import Config, Settings, name_str, show_config
 from create_features import init_feature_generator, produce_features
 from create_normalisation import produce_norma
 from eval import PCA, init_eigenvalue_method, matching
@@ -17,16 +15,14 @@ from plottings import (
 )
 from raw_data_generator import getting_data
 
-cs = ConfigStore.instance()
-cs.store(name="Quantum_Realms", group="Quantum", node=Config)
-
 samples = list[np.ndarray]
 dataset = list[samples]
 
 
-@hydra.main(version_base=None, config_path="config", config_name="settings")
-def main(cfg: Config):
+def main():
     # logging.basicConfig()
+    cfg = Settings(_env_file="config/settings.env")
+
     logging.basicConfig(
         format="%(asctime)s %(levelname)s %(message)s",
         datefmt="%d.%m.%Y %H:%M:%S",
