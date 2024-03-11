@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.markers import MarkerStyle
 
-from config.conf import Config, name_str
+from config.conf import Settings
 from eval import PCA_analysis
 
 
@@ -24,14 +24,14 @@ def matrix_to_dat_file(matrix: np.ndarray, name: str) -> None:
     pass
 
 
-def plot_eigenvalues(eigVal: list[np.ndarray], cfg: Config) -> None:
+def plot_eigenvalues(eigVal: list[np.ndarray], cfg: Settings) -> None:
     for element in eigVal:
         plt.plot(element)
     plt.yscale("log")
     plt.legend(["3", "4", "5", "6", "7", "8", "9", "0"])
     # plt.show()
     folder = cfg.data_output_folder
-    name = f"eigenvalues_{name_str(cfg)}.png"
+    name = f"eigenvalues_{cfg.name_str}.png"
     plt.savefig(folder + "/" + name)
     _save_notation(folder, name)
     plt.close()
@@ -39,7 +39,7 @@ def plot_eigenvalues(eigVal: list[np.ndarray], cfg: Config) -> None:
 
 def plot_hitrate_matrix(
     data: list[np.ndarray],
-    cfg: Config,
+    cfg: Settings,
     showing: bool = False,
 ) -> None:
     logging.info("Creating Plot...")
@@ -70,7 +70,7 @@ def plot_hitrate_matrix(
         axs.label_outer()
 
     folder = cfg.data_output_folder
-    name = f"hr_mat_{name_str(cfg)}.png"
+    name = f"hr_mat_{cfg.name_str}.png"
     # folder = "output"
     # name = f"pca_{cfg.feature_generator}_{cfg.normalizer}.png"
     fig1.savefig(folder + "/" + name)
@@ -85,7 +85,7 @@ def plot_mean_pca_values(
     data: list[np.ndarray],
     eigVec_data: list[np.ndarray],
     mean_value_data: list[np.ndarray],
-    cfg: Config,
+    cfg: Settings,
     showing: bool = False,
 ) -> None:
     logging.info("Creating Plot...")
@@ -235,5 +235,4 @@ def plot_histogram_prob(
     # for axs in ax.flat:
     #     axs.label_outer()
 
-    pass
     pass

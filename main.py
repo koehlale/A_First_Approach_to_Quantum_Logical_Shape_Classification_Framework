@@ -3,7 +3,7 @@ import logging
 import matplotlib.pyplot as plt
 import numpy as np
 
-from config.conf import Config, Settings, name_str, show_config
+from config.conf import Settings
 from create_features import init_feature_generator, produce_features
 from create_normalisation import produce_norma
 from eval import PCA, init_eigenvalue_method, matching
@@ -33,7 +33,7 @@ def main():
     ## A.I. controlled shape analysis with dark deep nano quantum
     #  logic ##
 
-    show_config(cfg)
+    cfg.show_config
 
     data_org: dataset = getting_data("lazy")
     # just used a shorted list of elements
@@ -149,7 +149,7 @@ def main():
 
     if False:
         for k, matrix in enumerate(hr_matricies):
-            matrix_to_dat_file(matrix, f"hr_mat_{name_str(cfg)}_{k}")
+            matrix_to_dat_file(matrix, f"hr_mat_{cfg.name_str}_{k}")
 
     logging.info("Programm finished! Yeah... :)")
 
