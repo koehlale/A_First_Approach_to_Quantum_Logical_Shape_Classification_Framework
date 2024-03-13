@@ -28,12 +28,28 @@ class Settings(BaseSettings):
         sorted = "sort" if self.sort_ev else "unsort"
         return f"{self.normalizer}_{self.eigenvec_func}_{sorted}"
 
+    @classmethod
+    def _check_str(cls, check: str, reference: tuple[str]) -> str:
+        if check not in reference:
+            raise ValueError(
+                f" The chosen option '{check}' is not valid. Use one of {reference} instead."
+            )
+        return check
+
     @field_validator("normalizer")
     @classmethod
     def check_correct_normalizer(cls, v: str) -> str:
         possible_input = ["max", "mean"]
-        if v not in possible_input:
-            raise ValueError(
-                f"{v} is not a valid option. Chose one of {possible_input}."
-            )
-        return v
+        return cls._check_str(check=v, reference=possible_input)
+
+    @field_validator("eigenvec_func")
+    @classmethod
+    def check_correct_eigenvec_func(cls, v: str) -> str:
+        possible_input = ["eigh", "eig"]
+        return cls._check_str(check=v, reference=possible_input)
+
+    @field_validator("feature_generator")
+    @classmethod
+    def check_correct_feature_generator(cls, v: str) -> str:
+        possible_input = ["D1"]
+        return cls._check_str(check=v, reference=possible_input)
