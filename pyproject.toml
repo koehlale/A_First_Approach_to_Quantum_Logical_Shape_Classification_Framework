@@ -5,7 +5,7 @@ description = "later"
 authors = ["Alex <koehlale@b-tu.de>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "a_first_approach_to_quantum_logical_shape_classification_framework"}]
+# packages = [{include = "a_first_approach_to_quantum_logical_shape_classification_framework"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
