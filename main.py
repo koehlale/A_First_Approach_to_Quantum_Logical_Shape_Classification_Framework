@@ -4,16 +4,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from config.conf import Settings
-from create_features import init_feature_generator, produce_features
-from create_normalisation import produce_norma
-from eval import PCA, init_eigenvalue_method, matching
-from plottings import (
+from src.data.raw_data_generator import getting_data
+from src.functions.eval import PCA, init_eigenvalue_method, matching
+from src.models.create_features import init_feature_generator, produce_features
+from src.models.create_normalisation import produce_norma
+from src.visualization.plottings import (
     matrix_to_dat_file,
     plot_eigenvalues,
     plot_hitrate_matrix,
     plot_mean_pca_values,
 )
-from raw_data_generator import getting_data
 
 samples = list[np.ndarray]
 dataset = list[samples]

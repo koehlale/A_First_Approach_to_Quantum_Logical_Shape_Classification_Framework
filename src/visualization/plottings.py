@@ -5,7 +5,7 @@ import numpy as np
 from matplotlib.markers import MarkerStyle
 
 from config.conf import Settings
-from eval import PCA_analysis
+from src.functions.eval import PCA_analysis
 
 
 def _save_notation(folder: str, name: str) -> None:
