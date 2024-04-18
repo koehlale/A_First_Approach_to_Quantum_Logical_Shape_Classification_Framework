@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Köhler"
+  given-names: "Alexander"
+title: "A First Approach to Quantum Logical Shape Classification Framework: The Code"
+version: 0.1
+date-released: 2024-02-16
+url: "https://github.com/koehlale/A_First_Approach_to_Quantum_Logical_Shape_Classification_Framework"
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Köhler"
+    given-names: "Alexander"
+  - family-names: "Kahra"
+    given-names: "Marvin"
+  - family-names: "Breuß"
+    given-names: "Michael"
+  doi: "10.20944/preprints202402.1042.v1"
+  journal: "Preprints.org"
+  month: 2
+  start: 1 # First page number
+  end: 21 # Last page number
+  title: "A First Approach to Quantum Logical Shape Classification Framework"
+  year: 2024
