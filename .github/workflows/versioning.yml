@@ -1,9 +1,14 @@
-name: Versioning the pyproject.toml file
-run-name: ${{github.actor}} is changing the version number
+name: Versioning the pyproject file
 on: [push]
-jobs: 
-    Changing the Version number:
-        runs-on: ubuntu-latest
-        steps:
-            -run: poetry version patch
-            -run: echo "The new version is ${{poetry version}}"
+jobs:
+  update:
+    name: Versioning
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Python
+        uses: actions/setup-python@v4
+      - name: Install poetry
+        uses: abatilo/actions-poetry@v2
+      - name: Chaning the version number
+        run: poetry version patch
