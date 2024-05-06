@@ -10,12 +10,11 @@ class Settings(BaseSettings):
     feature_generator: str = Field(alias="FEATURE_GENERATOR")
     normalizer: str = Field(alias="NORMALIZER")
     eigenvec_func: str = Field(alias="EIGENVEC_FUNCTION")
-    sort_ev: bool = Field(
-        alias="SORTING_EIGENVALUES",
-    )
+    sort_ev: bool = Field(alias="SORTING_EIGENVALUES")
     number_of_bins: int = Field(alias="NUMBER_OF_BINS", ge=1)
     ratio_of_train_data: int = Field(alias="RATIO_OF_TRAIN_DATA", ge=0, le=100)
     data_output_folder: str = Field(alias="DATA_OUTPUT_FOLDER")
+    full_inforamtion: bool = Field(alias="FULL_INFORMATION")
 
     @property
     def show_config(self) -> None:

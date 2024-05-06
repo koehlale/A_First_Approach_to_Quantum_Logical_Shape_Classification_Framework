@@ -23,26 +23,26 @@ def main():
     # logging.basicConfig()
     cfg = Settings(_env_file="config/settings.env")
 
-    logging.basicConfig(
-        format="%(asctime)s %(levelname)s %(message)s",
-        datefmt="%d.%m.%Y %H:%M:%S",
-        level=logging.INFO,
-    )
-    # logging.getLogger().setLevel(logging.INFO)
-
-    ## A.I. controlled shape analysis with dark deep nano quantum
-    #  logic ##
+    if cfg.full_inforamtion:
+        logging.basicConfig(
+            format="%(asctime)s %(levelname)s %(message)s",
+            datefmt="%d.%m.%Y %H:%M:%S",
+            level=logging.DEBUG,
+        )
+    else:
+        logging.basicConfig(
+            format="%(asctime)s %(levelname)s %(message)s",
+            datefmt="%d.%m.%Y %H:%M:%S",
+            level=logging.INFO,
+        )
 
     cfg.show_config
 
+    # loading data
     data_org: dataset = getting_data("lazy")
-    # just used a shorted list of elements
-    # we just use first 10 elements of the first two shapes
-    # data: dataset = [part_list[0:100] for part_list in data_org[:]]
 
-    feature_generating_function = init_feature_generator(
-        method=cfg.feature_generator, N=100
-    )
+    # genrating function for feature generation and eigenvalue computation
+    feature_generating_function = init_feature_generator(method=cfg.feature_generator)
     eigen_generator = init_eigenvalue_method(cfg.eigenvec_func)
     # normalisation_function = init_normalisation_method(method=cfg.normalizer)
 
@@ -82,7 +82,7 @@ def main():
         )
 
         logging.debug(
-            f"Wir verwenden {number_of_train_data} von {len(samp)} für das Training."
+            f"We use {number_of_train_data} out of {len(samp)} samples for training."
         )
 
         train_data.append(hist_features[:number_of_train_data])
@@ -105,7 +105,10 @@ def main():
         # logging.info(f"{meanX = }")
         # print(eigVal)
     logging.info("    ...done")
-    plot_eigenvalues(eigenvalue_data, cfg)
+
+    if False:
+        plot_eigenvalues(eigenvalue_data, cfg)
+
     # if False:
     #     # Plotting der Pricipal compontens and speichern als csv Dateien für Figure 5
     #     # for i in range(15):
@@ -145,7 +148,8 @@ def main():
     )
 
     # print(np.array(hr_matricies).shape)
-    plot_hitrate_matrix(data=hr_matricies, cfg=cfg, showing=False)
+    if False:
+        plot_hitrate_matrix(data=hr_matricies, cfg=cfg, showing=False)
 
     if False:
         for k, matrix in enumerate(hr_matricies):

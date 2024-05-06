@@ -39,28 +39,9 @@ def init_method(method: str) -> norma_gen_func:
         factor = ref_value / old_value
         return factor * sample
 
-    def zero_one_func(sample: np.ndarray, ref_sample: np.ndarray) -> np.ndarray:
-        sample -= np.min(sample)
-        max_value = np.max(sample)
-        if max_value == 0:
-            raise ZeroDivisionError(
-                "The max value of this sample is zero and therefore you would divide with zero in further calculations."
-            )
-        return sample / max_value
-
-    def zero_less_one_func(sample: np.ndarray, max_value: float) -> np.ndarray:
-        sample -= np.min(sample)
-        if max_value == 0:
-            raise ZeroDivisionError(
-                "The max value of this sample is zero and therefore you would divide with zero in further calculations."
-            )
-        return sample / max_value
-
     poss_options = {
         "mean": mean_func,
         "max": max_func,
-        "zeroone": zero_one_func,
-        # "0gmax": zero_less_one_func,
     }
 
     return poss_options[method]
