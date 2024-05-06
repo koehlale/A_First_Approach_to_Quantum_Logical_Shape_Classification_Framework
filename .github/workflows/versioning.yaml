@@ -1,0 +1,9 @@
+name: Versioning the pyproject.toml file
+run-name: ${{github.actor}} is changing the version number
+on: [commit]
+jobs: 
+    Changing the Version number:
+        runs-on: ubuntu-latest
+        steps:
+            -run: poetry version patch
+            -run: echo "The new version is ${{poetry version}}"
