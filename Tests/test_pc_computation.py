@@ -1,6 +1,6 @@
 import numpy as np
 
-from eval import pc_computation
+from src.functions.eval import pc_computation
 
 
 def test_pc_computation_x_is_array():

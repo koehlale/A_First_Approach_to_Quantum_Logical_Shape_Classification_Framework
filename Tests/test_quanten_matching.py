@@ -1,6 +1,6 @@
 import numpy as np
 
-from eval import quanten_matching
+from src.functions.eval import quanten_matching
 
 
 def test_quanten_k_eq_1():

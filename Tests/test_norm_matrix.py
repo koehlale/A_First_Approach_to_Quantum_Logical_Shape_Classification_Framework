@@ -1,10 +1,10 @@
 import numpy as np
 
-from eval import norm_matrix
+
+from src.functions.eval import norm_matrix
 
 
 def test_pc_computation_x_is_array():
-
     X = np.array([[1.0, -2.0, 2.0]])
 
     result = X / 3.0
