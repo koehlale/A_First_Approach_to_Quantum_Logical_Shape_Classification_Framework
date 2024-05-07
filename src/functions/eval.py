@@ -7,6 +7,26 @@ from sklearn.preprocessing import normalize
 samples = list[np.ndarray]
 
 
+def get_number_of_train_data(length: int, ratio: int) -> int:
+    """Computes the number of data for training
+
+    Args:
+        length (int): The total length
+        ratio (int): the ratio, i.e. 7:3, 1:1
+
+    Returns:
+        int: The number of data for training
+    """
+
+    number_of_train_data = int(np.floor((length * ratio) / 100))
+
+    logging.debug(
+        f"We use {number_of_train_data} out of {length} samples for training."
+    )
+
+    return number_of_train_data
+
+
 def init_eigenvalue_method(
     method: str,
 ) -> Callable[[np.ndarray], tuple[np.ndarray, np.ndarray]]:
