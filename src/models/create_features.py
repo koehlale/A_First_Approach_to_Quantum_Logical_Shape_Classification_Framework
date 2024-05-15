@@ -2,7 +2,11 @@ from typing import Callable
 
 import numpy as np
 
+from config.logger import create_logger
+
 feature_func = Callable[[np.ndarray], np.ndarray]
+
+log = create_logger("feature_generation")
 
 
 def init_feature_generator(method: str) -> feature_func:

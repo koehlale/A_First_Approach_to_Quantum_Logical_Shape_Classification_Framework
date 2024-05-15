@@ -1,7 +1,9 @@
-import logging
-
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+from config.logger import create_logger
+
+log = create_logger("config")
 
 
 class Settings(BaseSettings):
@@ -20,7 +22,7 @@ class Settings(BaseSettings):
     def show_config(self) -> None:
         class_dict: dict = self.__dict__
         for attribute, value in class_dict.items():
-            logging.info(f"{attribute:>20} : {value}")
+            log.info(f"{attribute:>20} : {value}")
 
     @property
     def name_str(self) -> str:
@@ -35,6 +37,7 @@ class Settings(BaseSettings):
             )
         return check
 
+    # validation functions
     @field_validator("normalizer")
     @classmethod
     def check_correct_normalizer(cls, v: str) -> str:
@@ -52,3 +55,9 @@ class Settings(BaseSettings):
     def check_correct_feature_generator(cls, v: str) -> str:
         possible_input = ["D1"]
         return cls._check_str(check=v, reference=possible_input)
+
+
+def create_Settings(path: str) -> Settings:
+    configs = Settings(_env_file=path)
+    # configs.show_config
+    return configs

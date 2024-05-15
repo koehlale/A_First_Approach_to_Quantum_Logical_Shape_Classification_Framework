@@ -1,10 +1,13 @@
-import logging
 from typing import Callable
 
 import numpy as np
 from sklearn.preprocessing import normalize
 
+from config.logger import create_logger
+
 samples = list[np.ndarray]
+
+log = create_logger("evaluation")
 
 
 def get_number_of_train_data(length: int, ratio: int) -> int:
@@ -20,9 +23,7 @@ def get_number_of_train_data(length: int, ratio: int) -> int:
 
     number_of_train_data = int(np.floor((length * ratio) / 100))
 
-    logging.debug(
-        f"We use {number_of_train_data} out of {length} samples for training."
-    )
+    log.debug(f"We use {number_of_train_data} out of {length} samples for training.")
 
     return number_of_train_data
 
@@ -44,13 +45,13 @@ def PCA(
     X = X - mX
     E = np.cov(X.T)
 
-    logging.debug("--- PCA-Funktion---")
-    logging.debug(f"Dimension der Matrix ={E.shape}")
-    logging.debug(f"E = {E}")
+    log.debug("--- PCA-Funktion---")
+    log.debug(f"Dimension der Matrix ={E.shape}")
+    log.debug(f"E = {E}")
 
     eigVal, eigVec = eig_func(E)
-    logging.debug(f"Eigenvektoren = {eigVec} and {type(eigVec)}")
-    logging.debug(f"Eigenwerte = {eigVal}")
+    log.debug(f"Eigenvektoren = {eigVec} and {type(eigVec)}")
+    log.debug(f"Eigenwerte = {eigVal}")
     # print(f"{np.round(eigVec @ eigVec.T, 3)}")
     if sorting:
         idx = eigVal.argsort()[::-1]
@@ -64,9 +65,9 @@ def _PCA_analysis(EigenVectors: np.ndarray, norm_vector: np.ndarray) -> np.ndarr
 
     Principle_Values = EigenVectors.T @ norm_vector.T
 
-    logging.debug("--- PCA-Analysis ---")
-    logging.debug(f"Dimension der Hauptkomponten = {Principle_Values.shape}")
-    logging.debug(f"Y = {Principle_Values} ")
+    log.debug("--- PCA-Analysis ---")
+    log.debug(f"Dimension der Hauptkomponten = {Principle_Values.shape}")
+    log.debug(f"Y = {Principle_Values} ")
 
     return Principle_Values
 
@@ -77,10 +78,10 @@ def PCA_analysis(EigenVectors: np.ndarray, points: list[np.ndarray]) -> np.ndarr
     Principle_Values = _PCA_analysis(EigenVectors, Point_Matrix)
 
     total = np.sum(np.abs(Principle_Values), axis=0)
-    logging.debug("--- PCA-Analysis ---")
-    logging.debug(f"Dimension der Hauptkomponten = {Principle_Values.shape}")
-    logging.debug(f"Y = {Principle_Values} ")
-    logging.debug(f"Dimension von Total = {np.shape(total)}")
+    log.debug("--- PCA-Analysis ---")
+    log.debug(f"Dimension der Hauptkomponten = {Principle_Values.shape}")
+    log.debug(f"Y = {Principle_Values} ")
+    log.debug(f"Dimension von Total = {np.shape(total)}")
 
     return (np.abs(Principle_Values) / total) * 100
 
@@ -109,7 +110,7 @@ def norm_matrix(X: np.matrix) -> np.matrix:
 def data_preprocess(
     data: samples, eigenbases: list[np.ndarray], mean_values: list[np.ndarray]
 ) -> list[list[np.matrix]]:
-    logging.info("Compute preprocessing for matching...")
+    log.info("Compute preprocessing for matching...")
     all_pc_matrices = []
     for shape_class_data in data:
         pc_matrices_per_class = []
@@ -118,7 +119,7 @@ def data_preprocess(
             pc_matrix = pc_computation(V=eigVec, X=norm_samples)
             pc_matrices_per_class.append(pc_matrix)
         all_pc_matrices.append(pc_matrices_per_class)
-    logging.info("    ...done")
+    log.info("    ...done")
     return all_pc_matrices
 
 
@@ -166,7 +167,7 @@ def _check_for_multiple_entries(matrix: np.ndarray) -> None:
     for vec in matrix.T:
         _, arr = np.unique(vec, return_counts=True)
         if np.max(arr) > 1:
-            logging.info(
+            log.warning(
                 f"We have multiple times the same probability.\nThis is mybe a problem. \nSee: {_}"
             )
 
@@ -179,20 +180,20 @@ def matching(
     plotting_hr: bool = False,
 ) -> list[np.ndarray]:
     num_shapes, num_samples, _ = np.array(data).shape
-    logging.debug(f"{num_shapes = } , {num_samples = }")
+    log.debug(f"{num_shapes = } , {num_samples = }")
 
     pc_matrices = data_preprocess(
         data=data, eigenbases=eigenbases, mean_values=mean_values
     )
 
-    logging.info("Compute matching...")
+    log.info("Compute matching...")
     count = 1
     hr_matrices = []
     for k0 in range(1, k):
         hit_rate_matrix = np.zeros((num_shapes, num_shapes))
         for shape_class in range(num_shapes):
             best_matching = quanten_matching(pc_matrices[shape_class], k0)
-            logging.debug(f"{count}: {best_matching = } --- {best_matching.shape}")
+            log.debug(f"{count}: {best_matching = } --- {best_matching.shape}")
             # print(f"{count}: {best_matching = } --- {best_matching.shape}")
             count += 1
             # hit_rate_matrix[shape_class] = best_matching
@@ -204,5 +205,5 @@ def matching(
         if plotting_hr:
             np.set_printoptions(precision=3, suppress=True)
             print(hit_rate_matrix)
-    logging.info("    ...done")
+    log.info("    ...done")
     return hr_matrices
