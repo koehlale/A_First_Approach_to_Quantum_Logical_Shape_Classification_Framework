@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "a first approach to quantum logical shape classification framework"
-version = "0.1.1"
+version = "1.0.0"
 description = "later"
 authors = ["Alex <koehlale@b-tu.de>"]
 license = "MIT"
