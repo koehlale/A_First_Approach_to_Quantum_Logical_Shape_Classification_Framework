@@ -1,5 +1,7 @@
 # A First Approach to Quantum Logical Shape Classification Framework
 
+This repository provides the code the paper [A First Approach to Quantum Logical Shape Classification Framework](https://doi.org/10.3390/math12111646).
+
 ## Virtual environment
 
 Using a virtual environment helps us to control all packages and their versions.
@@ -88,3 +90,11 @@ poetry show
 ```
 
 provides a list of all packages
+
+## Implementation details
+
+Here we want to provide basic details for the different functions we used. We try to keep this part as up-to-date as possible.
+
+### 'create_features.py'
+
+This module stores the defined feature function and the function to evaluate this feature on a given input.
