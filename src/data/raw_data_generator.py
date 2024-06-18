@@ -5,14 +5,11 @@ import numpy as np
 import scipy.io as scio
 
 
-def getting_data(method: str) -> list[list[np.ndarray]]:
+def getting_data(path: Path) -> list[list[np.ndarray]]:
+    # possible_methods = ["lazy"]
 
-    possible_methods = ["lazy"]
-
-    if method not in possible_methods:
-        raise NotImplementedError()
-
-    path = Path.cwd() / "data" / "all_shapes.mat"
+    # if method not in possible_methods:
+    #     raise NotImplementedError()
     return read_data(path)
 
 

@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import numpy as np
 
 from config.conf import create_Settings
@@ -8,6 +10,8 @@ from src.functions.preprocessing import preprocessing
 from src.visualization.plottings import plot_eigenvalues, plot_hitrate_matrix
 
 SETTINGS_PATH = "config/settings.env"
+DATA_PATH = Path.cwd() / "data" / "all_shapes.mat"
+
 log = create_logger("main")
 
 
@@ -19,7 +23,7 @@ def main():
     cfg.show_config
 
     # loading data
-    data_org: list[list[np.ndarray]] = getting_data("lazy")
+    data_org: list[list[np.ndarray]] = getting_data(DATA_PATH)
 
     # genrating function for feature generation and eigenvalue computation
 
