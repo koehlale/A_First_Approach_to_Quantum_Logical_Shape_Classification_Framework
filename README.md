@@ -2,6 +2,13 @@
 
 This repository provides the code the paper [A First Approach to Quantum Logical Shape Classification Framework](https://doi.org/10.3390/math12111646).
 
+## Table of Contents
+
++ [Table of Contents](#table-of-contents)
++ [How to Install and Run the Project](#how-to-install-and-run-the-project)
++ [Implementation details](#implementation-details)
+  + [create\_features.py](#create_featurespy)
+
 ## How to Install and Run the Project
 
 We make use of a virtual environment that helps us to control all packages and their versions.
@@ -21,6 +28,6 @@ There we make use of [Poetry](https://python-poetry.org/docs/#installation) that
 
 Here we want to provide basic details for the different functions we used. We try to keep this part as up-to-date as possible.
 
-### 'create_features.py'
+### create_features.py
 
 This module stores the defined feature function and the function to evaluate this feature on a given input.
