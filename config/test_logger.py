@@ -1,13 +1,10 @@
-import logging
-import logging.config
-
-from config.logger import create_logger
+from logger import create_logger
 
 
 def main():
     # logging.config.fileConfig("config/logging.conf")
     # log = logging.getLogger("test2")
-    log = create_logger("test4")
+    log = create_logger("test_name")
     # log.level(logging.DEBUG)
     log.debug("Debug message")
     log.info("Info message")
